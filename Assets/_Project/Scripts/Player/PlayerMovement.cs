@@ -9,10 +9,10 @@ public class PlayerMovement : MonoBehaviour
 
     public LayerMask groundMask;
 
-    public float speed = 12f;
+    public float speed = 3f;
     public float gravity = -9.8f;
     public float groundDistance = 0.4f;
-    public float jumpHeight = 3f;
+    public float jumpHeight = 1f;
 
     private Vector3 velocity;
 
@@ -24,14 +24,16 @@ public class PlayerMovement : MonoBehaviour
 
     private AudioSource audioSource;
 
-    public bool useFootsteps = true;
-
     bool m_PreviouslyGrounded;
+
+        private float timer = 0.5f;
+    private float count;
 
     // Start is called before the first frame update
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        count = timer;
     }
 
     // Update is called once per frame
@@ -54,13 +56,13 @@ public class PlayerMovement : MonoBehaviour
 
         controller.Move(velocity * Time.deltaTime);
 
-       
+        timer -= Time.deltaTime;
 
-        if(move.magnitude != 0 )
+        if(timer <= 0 && move.magnitude != 0)
         {
-            //PlayFootStepAudio();
+            PlayFootStepAudio();
+            timer = count;
         }
-
     }
 
     private void Jump()
