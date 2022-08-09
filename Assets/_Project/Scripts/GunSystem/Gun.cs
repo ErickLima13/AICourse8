@@ -3,32 +3,34 @@ using System.Collections;
 
 public class Gun : MonoBehaviour
 {
-
     public float damage = 10f;
     public float range = 100f;
     public float fireRate = 15f;
-
-    public int maxAmmo = 10;
-
-    public Camera fpsCam;
-   
-    public ParticleSystem muzzleFlash;
-
-    public GameObject impactEffect;
-
     private float nextTimeToFire = 0f;
     private float reloadTime = 1f;
 
+    public int maxAmmo = 10;
     public int currentAmmo;
+
+    public Camera fpsCam;
+
+    public GameObject[] effects;
+
+    public Animator animator;
+    public Animator myAnimator;
 
     private bool isReloading;
 
-    public Animator animator;
+    private void Initialization()
+    {
+        currentAmmo = maxAmmo;
+        myAnimator = GetComponent<Animator>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        currentAmmo = maxAmmo;
+        Initialization();
     }
 
     // Update is called once per frame
@@ -62,7 +64,6 @@ public class Gun : MonoBehaviour
 
         yield return new WaitForSeconds(reloadTime);
         
-
         isReloading = false;
 
         animator.SetBool("Reload", isReloading);
@@ -72,9 +73,7 @@ public class Gun : MonoBehaviour
 
     private void Shoot()
     {
-        //muzzleFlash.Play();
-
-        GetComponent<Animator>().Play("ShootPistol");
+        myAnimator.Play("ShootPistol");
         
         currentAmmo--;
 
@@ -85,17 +84,24 @@ public class Gun : MonoBehaviour
 
             Target target = hit.transform.GetComponent<Target>();
 
+            if (target.CompareTag("Player")) return;
+
             if(target != null)
             {
                 target.TakeDamage(damage);
             }
 
-            GameObject impactGO = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
-            Destroy(impactGO, 2f);
-
-
+            switch (hit.collider.tag)
+            {
+                case "Scenery":
+                    GameObject effectGO = Instantiate(effects[0], hit.point, Quaternion.LookRotation(hit.normal));
+                    Destroy(effectGO, 2f);
+                    break;
+                case "Enemies":
+                    GameObject effectGO2 = Instantiate(effects[1], hit.point, Quaternion.LookRotation(hit.normal));
+                    Destroy(effectGO2, 2f);
+                    break;
+            }
         }
-
-
     }
 }

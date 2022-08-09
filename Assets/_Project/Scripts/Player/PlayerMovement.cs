@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -26,14 +25,19 @@ public class PlayerMovement : MonoBehaviour
 
     bool m_PreviouslyGrounded;
 
-        private float timer = 0.5f;
+    private float timer = 0.5f;
     private float count;
+
+    private void Initialization()
+    {
+        audioSource = GetComponent<AudioSource>();
+        count = timer;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
-        count = timer;
+        Initialization();
     }
 
     // Update is called once per frame
@@ -58,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
 
         timer -= Time.deltaTime;
 
-        if(timer <= 0 && move.magnitude != 0)
+        if (timer <= 0 && move.magnitude != 0)
         {
             PlayFootStepAudio();
             timer = count;
@@ -79,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
             audioSource.clip = landSound;
             audioSource.Play();
         }
-    
+
         m_PreviouslyGrounded = controller.isGrounded;
 
         if (Input.GetButtonDown("Jump") && isGrounded)
