@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
     public float groundDistance = 0.4f;
     public float jumpHeight = 1f;
 
+    public float timerBreath = 7f;
+
     private Vector3 velocity;
 
     public bool isGrounded;
@@ -20,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private AudioClip[] m_FootstepSounds = null;
     [SerializeField] private AudioClip jumpSound = null;
     [SerializeField] private AudioClip landSound = null;
+    [SerializeField] private AudioClip breathingSound;
 
     private AudioSource audioSource;
 
@@ -62,6 +65,16 @@ public class PlayerMovement : MonoBehaviour
 
         timer -= Time.deltaTime;
 
+        timerBreath -= Time.deltaTime;
+
+        if(move.magnitude == 0 && controller.isGrounded && timerBreath <= 0)
+        {
+            audioSource.clip = breathingSound;
+            audioSource.Play();
+            timerBreath = 7f;
+            
+        }
+        
         if (timer <= 0 && move.magnitude != 0)
         {
             PlayFootStepAudio();

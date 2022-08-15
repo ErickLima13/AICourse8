@@ -7,6 +7,7 @@ public class UIController : MonoBehaviour
 {
     public TextMeshProUGUI currentAmmo;
     public TextMeshProUGUI maxAmmo;
+    public TextMeshProUGUI realTime;
 
     public Gun gun;
 
@@ -24,7 +25,10 @@ public class UIController : MonoBehaviour
 
     private void ShowUI()
     {
-        currentAmmo.text = gun.currentAmmo.ToString();
-        maxAmmo.text = gun.maxAmmo.ToString();
+        //currentAmmo.text = gun.currentAmmo.ToString();
+        //maxAmmo.text = gun.maxAmmo.ToString();
+
+        realTime.text = System.DateTime.Now.ToString("yy/MM/dd  HH:mm:ss");
+        
     }
 }

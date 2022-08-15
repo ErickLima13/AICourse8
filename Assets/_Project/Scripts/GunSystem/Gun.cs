@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
@@ -41,13 +41,13 @@ public class Gun : MonoBehaviour
             return;
         }
 
-        if(currentAmmo <= 0 || Input.GetKey(KeyCode.R))
+        if (currentAmmo <= 0 || Input.GetKey(KeyCode.R))
         {
             StartCoroutine(Reload());
             return;
         }
 
-        if (Input.GetButtonDown("Fire1") &&  Time.time >= nextTimeToFire)
+        if (Input.GetButtonDown("Fire1") && Time.time >= nextTimeToFire)
         {
             nextTimeToFire = Time.time + 1f / fireRate;
             Shoot();
@@ -63,18 +63,18 @@ public class Gun : MonoBehaviour
         print("Reloading...");
 
         yield return new WaitForSeconds(reloadTime);
-        
+
         isReloading = false;
 
         animator.SetBool("Reload", isReloading);
-       
+
         currentAmmo = maxAmmo;
     }
 
     private void Shoot()
     {
         myAnimator.Play("ShootPistol");
-        
+
         currentAmmo--;
 
         RaycastHit hit;
@@ -83,13 +83,6 @@ public class Gun : MonoBehaviour
             Debug.Log(hit.transform.name);
 
             Target target = hit.transform.GetComponent<Target>();
-
-            if (target.CompareTag("Player")) return;
-
-            if(target != null)
-            {
-                target.TakeDamage(damage);
-            }
 
             switch (hit.collider.tag)
             {
@@ -101,6 +94,13 @@ public class Gun : MonoBehaviour
                     GameObject effectGO2 = Instantiate(effects[1], hit.point, Quaternion.LookRotation(hit.normal));
                     Destroy(effectGO2, 2f);
                     break;
+            }
+
+            if (target.CompareTag("Player")) return;
+
+            if (target != null)
+            {
+                target.TakeDamage(damage);
             }
         }
     }
