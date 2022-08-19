@@ -3,9 +3,11 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-    public float damage = 10f;
+    public int damage = 10;
+
     public float range = 100f;
     public float fireRate = 15f;
+
     private float nextTimeToFire = 0f;
     private float reloadTime = 1f;
 
@@ -53,7 +55,7 @@ public class Gun : MonoBehaviour
             Shoot();
         }
 
-        Debug.DrawRay(fpsCam.transform.position, fpsCam.transform.forward * 10, Color.blue);
+        //Debug.DrawRay(fpsCam.transform.position, fpsCam.transform.forward * 10, Color.blue);
     }
 
     private IEnumerator Reload()
@@ -80,9 +82,14 @@ public class Gun : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
-            Debug.Log(hit.transform.name);
+            //Debug.Log(hit.transform.name);
 
             Target target = hit.transform.GetComponent<Target>();
+
+            if (target.CompareTag("Player"))
+            {
+                return;
+            }
 
             switch (hit.collider.tag)
             {
@@ -95,8 +102,6 @@ public class Gun : MonoBehaviour
                     Destroy(effectGO2, 2f);
                     break;
             }
-
-            if (target.CompareTag("Player")) return;
 
             if (target != null)
             {

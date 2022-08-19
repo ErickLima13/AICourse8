@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
-    public float health = 50f;
+    public int health = 50;
 
     public GameObject[] decalBlood;
 
@@ -21,7 +21,7 @@ public class Target : MonoBehaviour
         Initialization();
     }
 
-    public void TakeDamage(float amount)
+    public void TakeDamage(int amount)
     {
         animator.Play("Hit");
 

@@ -16,7 +16,9 @@ public class ChasePlayer : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         agent = GetComponent<NavMeshAgent>();
 
-        agent.SetDestination(RandomNavMeshLocation());
+        //agent.SetDestination(RandomNavMeshLocation());
+
+        player.GetComponent<IDamageable>().ApllyDamage(10);
     }
 
     // Update is called once per frame
@@ -24,16 +26,17 @@ public class ChasePlayer : MonoBehaviour
     {
         //agent.SetDestination(player.transform.position);
 
-        if (agent != null && agent.remainingDistance <= agent.stoppingDistance)
-        {
-            agent.SetDestination(RandomNavMeshLocation());
-        }
-
-        // Faz Atacar
-        //if (agent.remainingDistance <= agent.stoppingDistance)
+        //if (agent != null && agent.remainingDistance <= agent.stoppingDistance)
         //{
-        //    player.GetComponent<Target>().TakeDamage(10);
+        //    agent.SetDestination(RandomNavMeshLocation());
         //}
+
+        //Faz Atacar
+
+        if (agent.remainingDistance < agent.stoppingDistance)
+        {
+            player.GetComponent<IDamageable>().ApllyDamage(10);
+        }
     }
 
     private Vector3 RandomNavMeshLocation()

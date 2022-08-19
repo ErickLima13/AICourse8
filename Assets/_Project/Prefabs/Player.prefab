@@ -148,9 +148,9 @@ GameObject:
   - component: {fileID: 2797136818330656693}
   - component: {fileID: 2797136818330656694}
   - component: {fileID: 2797136818330656692}
-  - component: {fileID: 2797136818330656650}
   - component: {fileID: 2260089239059652449}
   - component: {fileID: 2260089239059652450}
+  - component: {fileID: 410381934}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -205,119 +205,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da6d3473d2069e24b94ef13cfa075a1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerPhysics: {fileID: 410381934}
   controller: {fileID: 2797136818330656694}
-  groundCheck: {fileID: 2797136818266222651}
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 64
-  speed: 3
-  gravity: -19.62
-  groundDistance: 0.4
-  jumpHeight: 1
-  timerBreath: 0
-  isGrounded: 0
-  m_FootstepSounds:
-  - {fileID: 8300000, guid: 42e65e088b3f4374e851b8dbd38f3df9, type: 3}
-  - {fileID: 8300000, guid: 8bc94ec6ed537e743b481638bdcd503d, type: 3}
-  jumpSound: {fileID: 8300000, guid: 5897aeed9b676024fbb8c694b421a861, type: 3}
-  landSound: {fileID: 8300000, guid: 3b09d59f4499d45428baa7a21e954296, type: 3}
-  breathingSound: {fileID: 8300000, guid: 482f5587ae372694c99f305ce58d6899, type: 3}
---- !u!82 &2797136818330656650
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2797136818330656695}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 3
-  MaxDistance: 10
-  Pan2D: 0
-  rolloffMode: 1
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  damageScreen: {fileID: 0}
+  lifeCurrent: 0
 --- !u!95 &2260089239059652449
 Animator:
   serializedVersion: 4
@@ -359,6 +250,36 @@ MonoBehaviour:
   - {fileID: 100000, guid: aec54d7a991d7b644b145d550a4b7831, type: 3}
   - {fileID: 100000, guid: 14987c031123b98408a165a8bf1288d4, type: 3}
   - {fileID: 100000, guid: 43dd1ba2a5dde844eb01240da13ab96b, type: 3}
+--- !u!114 &410381934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2797136818330656695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c0aa8999fbb3846be771fd465dc042, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  footstepSounds:
+  - {fileID: 8300000, guid: 42e65e088b3f4374e851b8dbd38f3df9, type: 3}
+  - {fileID: 8300000, guid: 8bc94ec6ed537e743b481638bdcd503d, type: 3}
+  jumpSound: {fileID: 8300000, guid: 5897aeed9b676024fbb8c694b421a861, type: 3}
+  landSound: {fileID: 8300000, guid: 3b09d59f4499d45428baa7a21e954296, type: 3}
+  breathingSound: {fileID: 8300000, guid: 482f5587ae372694c99f305ce58d6899, type: 3}
+  soundController: {fileID: 0}
+  controller: {fileID: 2797136818330656694}
+  groundCheck: {fileID: 2797136818266222651}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 64
+  speed: 3
+  gravity: -9.8
+  groundDistance: 0.4
+  jumpHeight: 1
+  timerBreath: 7
+  isGrounded: 0
 --- !u!1 &2797136818469483442
 GameObject:
   m_ObjectHideFlags: 0
