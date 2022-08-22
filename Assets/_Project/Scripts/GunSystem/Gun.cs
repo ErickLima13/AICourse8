@@ -3,28 +3,36 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-    public int damage = 10;
+    public int damage;
 
-    public float range = 100f;
-    public float fireRate = 15f;
+    public float range;
+    public float fireRate;
 
-    [SerializeField]private float nextTimeToFire = 0f;
-    private float reloadTime = 1f;
+    private float nextTimeToFire = 0f;
+    private float reloadTime;
 
-    public int maxAmmo = 10;
+    public int maxAmmo;
     public int currentAmmo;
+
+    public AttributesWeapons attributesWeapons;
 
     public Camera fpsCam;
 
     public GameObject[] effects;
 
-    public Animator animator;
+    public Animator handAnimator;
     public Animator myAnimator;
 
     private bool isReloading;
 
     private void Initialization()
     {
+        maxAmmo = attributesWeapons.maxAmmo;
+        damage = attributesWeapons.damage;
+        range = attributesWeapons.range;
+        fireRate = attributesWeapons.fireRate;
+        reloadTime = attributesWeapons.reloadTime;
+
         currentAmmo = maxAmmo;
         myAnimator = GetComponent<Animator>();
     }
@@ -54,29 +62,25 @@ public class Gun : MonoBehaviour
             nextTimeToFire = Time.time + 1f / fireRate;
             Shoot();
         }
-
     }
 
     private IEnumerator Reload()
     {
         isReloading = true;
-        animator.SetBool("Reload", isReloading);
-        
+        handAnimator.SetBool("Reload", isReloading);
 
         yield return new WaitForSeconds(reloadTime);
 
         isReloading = false;
 
-        animator.SetBool("Reload", isReloading);
-        
-
+        handAnimator.SetBool("Reload", isReloading);
+       
         currentAmmo = maxAmmo;
     }
 
     private void Shoot()
     {
-      
-        myAnimator.Play("ShootPistol");
+        myAnimator.SetTrigger("Shoot");
 
         currentAmmo--;
 

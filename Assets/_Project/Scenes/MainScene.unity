@@ -33211,18 +33211,6 @@ PrefabInstance:
       propertyPath: soundController
       value: 
       objectReference: {fileID: 1007963775}
-    - target: {fileID: 2797136817805050834, guid: 69c34124d7d5719459043fff0bdeb4fc, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2797136817805050834, guid: 69c34124d7d5719459043fff0bdeb4fc, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2797136817805050846, guid: 69c34124d7d5719459043fff0bdeb4fc, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2797136818330656693, guid: 69c34124d7d5719459043fff0bdeb4fc, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -33270,10 +33258,6 @@ PrefabInstance:
     - target: {fileID: 2797136818330656695, guid: 69c34124d7d5719459043fff0bdeb4fc, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4146722538948561556, guid: 69c34124d7d5719459043fff0bdeb4fc, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69c34124d7d5719459043fff0bdeb4fc, type: 3}
