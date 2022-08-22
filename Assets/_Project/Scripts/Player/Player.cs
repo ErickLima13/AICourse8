@@ -1,15 +1,15 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Player : MonoBehaviour, IDamageable
+public class Player : MonoBehaviour, IModifiable
 {
     [SerializeField] private PlayerPhysics playerPhysics;
-    [SerializeField] private GeneralStatus status;
+   
     [SerializeField] private Animator animator;
 
-    public CharacterController controller;
+    public GeneralStatus status;
 
-    public Image damageScreen;
+    public CharacterController controller;
 
     public int currentLife;
 
@@ -31,22 +31,19 @@ public class Player : MonoBehaviour, IDamageable
         playerPhysics.Jump();
     }
 
-    public void ApllyDamage(int damage)
+    public void HealthChange(int value)
     {
-        if (damageScreen.color.a == 1)
+        if(currentLife == 0)
         {
             return;
         }
 
         animator.Play("Hit");
-        currentLife -= damage;
-        var tempColor = damageScreen.color;
-        tempColor.a = status.maxLife / currentLife -1; // 50 (vida maxima) / 40 (vida atual) - 1 calculo do alpha
-        damageScreen.color = tempColor;
+        currentLife -= value;
 
         if (currentLife <= 0)
         {
-            
+
         }
     }
 }

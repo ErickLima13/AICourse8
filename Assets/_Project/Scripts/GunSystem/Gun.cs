@@ -8,7 +8,7 @@ public class Gun : MonoBehaviour
     public float range = 100f;
     public float fireRate = 15f;
 
-    private float nextTimeToFire = 0f;
+    [SerializeField]private float nextTimeToFire = 0f;
     private float reloadTime = 1f;
 
     public int maxAmmo = 10;
@@ -55,26 +55,27 @@ public class Gun : MonoBehaviour
             Shoot();
         }
 
-        //Debug.DrawRay(fpsCam.transform.position, fpsCam.transform.forward * 10, Color.blue);
     }
 
     private IEnumerator Reload()
     {
         isReloading = true;
         animator.SetBool("Reload", isReloading);
-        print("Reloading...");
+        
 
         yield return new WaitForSeconds(reloadTime);
 
         isReloading = false;
 
         animator.SetBool("Reload", isReloading);
+        
 
         currentAmmo = maxAmmo;
     }
 
     private void Shoot()
     {
+      
         myAnimator.Play("ShootPistol");
 
         currentAmmo--;
@@ -82,30 +83,21 @@ public class Gun : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
-            //Debug.Log(hit.transform.name);
-
-            Target target = hit.transform.GetComponent<Target>();
-
-            if (target.CompareTag("Player"))
+            if(hit.collider.TryGetComponent(out Player player))
             {
                 return;
             }
 
-            switch (hit.collider.tag)
+            if (hit.collider.TryGetComponent(out IModifiable modifiable))
             {
-                case "Scenery":
-                    GameObject effectGO = Instantiate(effects[0], hit.point, Quaternion.LookRotation(hit.normal));
-                    Destroy(effectGO, 2f);
-                    break;
-                case "Enemies":
-                    GameObject effectGO2 = Instantiate(effects[1], hit.point, Quaternion.LookRotation(hit.normal));
-                    Destroy(effectGO2, 2f);
-                    break;
+                modifiable.HealthChange(damage);
+                GameObject effectGO2 = Instantiate(effects[1], hit.point, Quaternion.LookRotation(hit.normal));
+                Destroy(effectGO2, 2f);
             }
-
-            if (target != null)
+            else
             {
-                target.TakeDamage(damage);
+                GameObject effectGO = Instantiate(effects[0], hit.point, Quaternion.LookRotation(hit.normal));
+                Destroy(effectGO, 2f);
             }
         }
     }

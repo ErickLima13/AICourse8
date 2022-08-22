@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ChasePlayer : MonoBehaviour
+public class ChasePlayer : MonoBehaviour,IModifiable
 {
     private GameObject player;
     private NavMeshAgent agent;
@@ -10,15 +10,23 @@ public class ChasePlayer : MonoBehaviour
 
     [Range(1, 100)] public float walkRadius;
 
+    public int health = 50;
+
+    public GameObject[] decalBlood;
+
+    private Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         agent = GetComponent<NavMeshAgent>();
 
+        animator = GetComponent<Animator>();
+
         //agent.SetDestination(RandomNavMeshLocation());
 
-        player.GetComponent<IDamageable>().ApllyDamage(10);
+
     }
 
     // Update is called once per frame
@@ -35,7 +43,7 @@ public class ChasePlayer : MonoBehaviour
 
         if (agent.remainingDistance < agent.stoppingDistance)
         {
-            player.GetComponent<IDamageable>().ApllyDamage(10);
+            //player.GetComponent<IDamageable>().ApllyDamage(10);
         }
     }
 
@@ -54,6 +62,24 @@ public class ChasePlayer : MonoBehaviour
         return finalPosistion;
     }
 
-    
+    public void HealthChange(int value)
+    {
+        animator.Play("Hit");
 
+        health -= value;
+
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        int n = Random.Range(1, decalBlood.Length);
+        GameObject effectGO = Instantiate(decalBlood[n], transform.position, Quaternion.identity);
+        effectGO.SetActive(true);
+        //gameObject.SetActive(false);
+        //Destroy(gameObject);
+    }
 }

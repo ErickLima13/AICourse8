@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IDamageable
+public interface IModifiable
 {
-    void ApllyDamage(int damage);
+    void HealthChange(int value);
 }
